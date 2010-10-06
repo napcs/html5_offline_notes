@@ -68,11 +68,8 @@ $(function(){
     
   });
   
-
-  
   connectToDB();
   createNotesTable();
-  
   
   $("#save").click(function(event){
     event.preventDefault();
@@ -80,6 +77,5 @@ $(function(){
     var note = $("#note");
     insertNote(title, note);
   });
-  
   
 });
