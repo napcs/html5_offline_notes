@@ -83,16 +83,42 @@ fetchNotes = function(){
   });
 };
 
+updateNote = function(title, note)
+{
+   var id = title.attr("data-id");
+   db.transaction(function(tx){
+    tx.executeSql("UPDATE notes set title = ?, note = ? where id = ?",
+                  [title.val(), note.val(), id],
+      function(tx, result){ 
+        alert('Record ' + id + ' updated!');
+        $("#notes>li[data-id=" + id + "]").html(title.val());
+      },
+      function(){ 
+        alert('The note was not updated!');
+      }
+    );
+  });
+};
+
+newNote = function(){
+  $("#delete").hide();
+  var title = $("#title");
+  title.removeAttr("data-id");
+  title.val("");
+  var note = $("#note");
+  note.val("");
+}
+
+
 $(function(){
   $("#form").hide();
   $("#delete").hide();
   
   
-  
   $("#new").click(function(e){
     $("#form").show();
     $("#notes").hide();
-    
+    newNote();
   });
   
   $("#back").click(function(e){
@@ -110,7 +136,12 @@ $(function(){
     event.preventDefault();
     var title = $("#title");
     var note = $("#note");
-    insertNote(title, note);
+    // Check to see if it's an existing entry
+    if(title.attr("data-id")){
+      updateNote(title, note);
+    }else{
+      insertNote(title, note);
+    }
   });
     
   $("#notes").click(function(event){
