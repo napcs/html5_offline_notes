@@ -78,4 +78,5 @@ $(function(){
     insertNote(title, note);
   });
   
+
 });
