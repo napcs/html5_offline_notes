@@ -2,6 +2,8 @@ var db = null;
 
 $(function(){
   $("#form").hide();
+  $("#delete").hide();
+  
   
   $("#new").click(function(e){
     $("#form").show();
