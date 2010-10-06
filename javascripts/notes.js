@@ -42,7 +42,7 @@ insertNote = function(title, note)
 };
 
 addToNotesList = function(id, title){
-  var notes = $("#notes");
+  var notes = $("#notes ul");
   var item = $("<li>");
   item.attr("data-id", id);
   item.html(title);               
