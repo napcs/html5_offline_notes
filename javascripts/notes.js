@@ -109,6 +109,22 @@ newNote = function(){
   note.val("");
 }
 
+deleteNote = function(title)
+{
+   var id = title.attr("data-id");
+   db.transaction(function(tx){
+      tx.executeSql("DELETE from notes where id = ?", [id],
+        function(tx, result){ 
+         alert('Record ' + id + ' deleted!');
+         $("#notes>li[data-id=" + id + "]").remove();
+        },
+        function(){ 
+         alert('The note was not deleted!');
+        }
+      );
+   });
+};
+
 
 $(function(){
   $("#form").hide();
@@ -153,6 +169,14 @@ $(function(){
       
     }
     
+  });
+  
+  $("#delete").click(function(event){
+    event.preventDefault();
+    var title = $("#title");
+    deleteNote(title);
+    newNote();
+    $("#back").click();
   });
   
   
