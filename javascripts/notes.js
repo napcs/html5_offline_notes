@@ -21,6 +21,35 @@ createNotesTable = function()
   });
 };
 
+insertNote = function(title, note)
+{
+   db.transaction(function(tx){
+      tx.executeSql("INSERT INTO notes (title, note) VALUES (?, ?)", 
+                     [title.val(), note.val()],
+        function(tx, result){ 
+         var id = result.insertId ;
+         alert('Record ' + id+ ' saved!');
+         title.attr("data-id", result.insertId );
+         addToNotesList(id, title.val());
+         $("#delete").show();
+
+        },
+        function(){ 
+          alert('The note could not be saved.'); 
+        }
+      );
+   });
+};
+
+addToNotesList = function(id, title){
+  var notes = $("#notes");
+  var item = $("<li>");
+  item.attr("data-id", id);
+  item.html(title);               
+  notes.append(item);
+};
+
+
 $(function(){
   $("#form").hide();
   $("#delete").hide();
@@ -44,35 +73,6 @@ $(function(){
   connectToDB();
   createNotesTable();
   
-  
-  
-  insertNote = function(title, note)
-  {
-     db.transaction(function(tx){
-        tx.executeSql("INSERT INTO notes (title, note) VALUES (?, ?)", 
-                       [title.val(), note.val()],
-          function(tx, result){ 
-           var id = result.insertId ;
-           alert('Record ' + id+ ' saved!');
-           title.attr("data-id", result.insertId );
-           addToNotesList(id, title.val());
-           $("#delete").show();
-
-          },
-          function(){ 
-            alert('The note could not be saved.'); 
-          }
-        );
-     });
-  };
-  
-  addToNotesList = function(id, title){
-    var notes = $("#notes");
-    var item = $("<li>");
-    item.attr("data-id", id);
-    item.html(title);               
-    notes.append(item);
-  };
   
   $("#save").click(function(event){
     event.preventDefault();
