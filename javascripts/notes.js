@@ -39,15 +39,7 @@ $(function(){
     
   });
   
-
-  
   connectToDB();
   createNotesTable();
-  
-  
-  
-  
-  
-  
   
 });
