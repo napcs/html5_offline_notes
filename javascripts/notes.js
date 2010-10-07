@@ -116,7 +116,7 @@ deleteNote = function(title)
       tx.executeSql("DELETE from notes where id = ?", [id],
         function(tx, result){ 
          alert('Record ' + id + ' deleted!');
-         $("#notes>li[data-id=" + id + "]").remove();
+         $("#notes ul>li[data-id=" + id + "]").remove();
         },
         function(){ 
          alert('The note was not deleted!');
