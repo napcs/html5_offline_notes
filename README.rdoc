@@ -1,0 +1,6 @@
+= HTML5 Offline Notes Demo
+
+Simple notetaking application that works on mobile devices, using HTML5's offline support and Web SQL databases. Works on Webkit devices.
+
+Live example available at http://demos.napcsweb.com/offline/
+
